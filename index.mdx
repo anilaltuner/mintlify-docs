@@ -1,97 +1,105 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Klaviyo Integration"
+description: "Connect Klaviyo with Merx to sync customer profiles, segments, and product catalogs for WhatsApp marketing"
 ---
 
-## Setting up
+## What is Merx?
 
-Get your documentation site up and running in minutes.
+Merx is a WhatsApp marketing platform that enables brands to engage customers through personalized WhatsApp messages, campaigns, and conversational commerce.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+## What does this integration do?
 
-## Make it yours
+The Merx + Klaviyo integration allows you to:
 
-Design a docs site that looks great and empowers your users.
+- **Sync customer profiles** from Klaviyo to Merx
+- **Import Klaviyo segments** as Merx user groups
+- **Sync your Klaviyo product catalog** to Merx for WhatsApp commerce
+- **Trigger WhatsApp campaigns** directly from Klaviyo Flows
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+## Prerequisites
 
-## Create beautiful pages
+Before you begin, make sure you have:
 
-Everything you need to create world-class documentation.
+- An active Merx account
+- An active Klaviyo account with admin access
+- WhatsApp Business API connection configured in Merx
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## Installation Steps
 
-## Need inspiration?
+### Step 1: Navigate to Integrations
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+1. Log into your Merx Portal at [portal.hellomerx.com](https://portal.hellomerx.com)
+2. Click on **Integrations** in the left navigation menu
+
+### Step 2: Connect Klaviyo
+
+1. Find the **Klaviyo** card in the integrations list
+2. Click **Connect**
+3. On the Klaviyo integration page, click **Connect to Klaviyo**
+
+### Step 3: Authorize the Connection
+
+1. You'll be redirected to Klaviyo's authorization page
+2. Log into your Klaviyo account if prompted
+3. Review the permissions requested:
+    - **Read access** to profiles, lists, segments, events, and catalogs
+    - **Write access** to catalogs (for bidirectional sync)
+4. Click **Allow** to authorize the connection
+
+### Step 4: Verify Connection
+
+1. After authorization, you'll be redirected back to Merx
+2. The connection status should show **Connected** with your Klaviyo account ID
+3. You can now configure sync settings
+
+## Configure Sync Settings
+
+After connecting, you can configure how data syncs between Klaviyo and Merx:
+
+### Sync Options
+
+| **Setting** | **Description** |
+| --- | --- |
+| **Create Users** | Create new contacts in Merx for Klaviyo profiles that don't exist |
+| **Update Users** | Update existing contacts with data from Klaviyo |
+| **Sync Properties** | Import Klaviyo custom properties as contact attributes |
+| **Create Groups** | Create Merx user groups matching Klaviyo lists/segments |
+
+### Scheduled Sync
+
+Enable scheduled sync to automatically import new Klaviyo profiles daily.
+
+## Disconnecting the Integration
+
+To disconnect your Klaviyo integration:
+
+1. Go to **Integrations** > **Klaviyo**
+2. Click **Disconnect**
+3. Confirm the disconnection
+
+Note: Disconnecting will revoke Merx's access to your Klaviyo account. Previously synced data will remain in Merx.
+
+## Troubleshooting
+
+### Connection Failed
+
+If the OAuth connection fails:
+
+- Ensure you have admin access to your Klaviyo account
+- Check that pop-ups are not blocked in your browser
+- Try clearing your browser cache and cookies
+
+### Sync Not Working
+
+If profiles aren't syncing:
+
+- Verify your Klaviyo integration is still **Active**
+- Check that profiles have valid phone numbers
+- Review the sync settings to ensure the correct options are enabled
+
+## Need Help?
+
+- **Email:** [hello@hellomerx.com](mailto:hello@hellomerx.com)
+- **Documentation:** [docs.hellomerx.com](https://docs.hellomerx.com)
+
+---
