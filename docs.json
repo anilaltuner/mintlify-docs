@@ -16,7 +16,8 @@
           {
             "group": "Integrations",
             "pages": [
-              "index"
+              "index",
+              "booxi-integration"
             ]
           }
         ]
