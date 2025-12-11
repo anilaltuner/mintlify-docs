@@ -8,22 +8,11 @@
     "dark": "#0F7A2A"
   },
   "favicon": "/favicon.svg",
-  "layout": {
-    "sidebar": "hidden"
-  },
   "navigation": {
     "tabs": [
       {
         "tab": " ",
-        "groups": [
-          {
-            "group": "Integrations",
-            "pages": [
-              "index",
-              "booxi-integration"
-            ]
-          }
-        ]
+        "groups": []
       }
     ],
     "global": {

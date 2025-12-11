@@ -1,0 +1,157 @@
+---
+title: "CRM Integrations"
+description: "Connect your favorite CRM and marketing tools to sync customer data, automate workflows, and deliver personalized WhatsApp experiences at scale"
+mode: "center"
+---
+
+## Overview
+
+Merx integrates with leading CRM and marketing automation platforms to help you leverage your existing customer data for WhatsApp marketing. Sync customer profiles, segments, and product catalogs seamlessly to deliver personalized experiences at scale.
+
+<Frame>
+  <img src="/integrations.png" alt="Merx CRM Integrations" />
+</Frame>
+
+## What Can You Do with CRM Integrations?
+
+With Merx CRM integrations, you can:
+
+- **Sync customer profiles** — Import customer data from your CRM to Merx automatically
+- **Import segments and lists** — Bring your carefully curated audience segments as Merx user groups
+- **Sync product catalogs** — Enable WhatsApp commerce with your existing product data
+- **Trigger WhatsApp campaigns** — Launch campaigns from your CRM flows and automations
+- **Track events** — Capture customer interactions and sync them back to your CRM
+
+## How It Works
+
+Merx uses a secure integration layer to connect with your CRM, supporting both **API sync** and **webhook-based triggers**.
+
+### Authentication Methods
+
+| **Method** | **How it works** |
+| --- | --- |
+| **OAuth 2.0** | One-click authorization through your CRM's login page. No API keys to manage. |
+| **API Key** | Enter your CRM's API key directly in Merx for quick setup. |
+
+Most integrations use OAuth 2.0 for a seamless, secure connection experience.
+
+<Frame>
+  <img src="/crm.png" alt="CRM Integration Architecture" />
+</Frame>
+
+### Integration Architecture
+
+| **Component** | **Description** |
+| --- | --- |
+| **OAuth Handler** | Securely authenticates and authorizes connections to your CRM |
+| **Sync Engine** | Handles bidirectional data synchronization between platforms |
+| **Webhook Handler** | Processes real-time events and flow triggers from your CRM |
+| **API Endpoints** | Exposes Merx capabilities for CRM-initiated actions |
+
+### Data Mapping
+
+Your CRM data maps to Merx core models:
+
+| **CRM Data** | **Merx Model** |
+| --- | --- |
+| Profiles / Contacts | Chat_User |
+| Lists / Segments | Group |
+| Catalog Items | Product |
+| Flows / Automations | Campaigns |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Before connecting a CRM integration, make sure you have:
+
+- An active Merx account
+- An active account with your CRM platform (with admin access)
+- WhatsApp Business API connection configured in Merx
+
+### Step 1: Navigate to Integrations
+
+1. Log into your Merx Portal at [portal.hellomerx.com](https://portal.hellomerx.com)
+2. Click on **Integrations** in the top navigation menu, in CommerceHub
+
+### Step 2: Connect Your CRM
+
+1. Find your CRM platform card in the integrations list
+2. Click **Connect**
+3. On the integration page, click **Connect to [Platform]**
+
+### Step 3: Authorize the Connection
+
+1. You'll be redirected to your CRM's authorization page
+2. Log into your CRM account if prompted
+3. Review the permissions requested:
+    - **Read access** to profiles, lists, segments, events, and catalogs
+    - **Write access** to catalogs (for bidirectional sync, where supported)
+4. Click **Allow** to authorize the connection
+
+### Step 4: Verify Connection
+
+1. After authorization, you'll be redirected back to Merx
+2. The connection status should show **Connected** with your account details
+3. You can now configure sync settings
+
+## Configure Sync Settings
+
+After connecting, configure how data syncs between your CRM and Merx:
+
+### Sync Options
+
+| **Setting** | **Description** |
+| --- | --- |
+| **Create Users** | Create new contacts in Merx for CRM profiles that don't exist |
+| **Update Users** | Update existing contacts with data from your CRM |
+| **Sync Properties** | Import custom properties as contact attributes |
+| **Create Groups** | Create Merx user groups matching CRM lists/segments |
+
+### Scheduled Sync
+
+Enable scheduled sync to automatically import new profiles daily. This ensures your Merx audience stays up-to-date with your CRM data.
+
+## Disconnecting an Integration
+
+To disconnect a CRM integration:
+
+1. Go to **Integrations** and find your connected CRM
+2. Click **Disconnect**
+3. Confirm the disconnection
+
+<Note>
+Disconnecting will revoke Merx's access to your CRM account. Previously synced data will remain in Merx.
+</Note>
+
+## Troubleshooting
+
+### Connection Failed
+
+If the OAuth connection fails:
+
+- Ensure you have admin access to your CRM account
+- Check that pop-ups are not blocked in your browser
+- Try clearing your browser cache and cookies
+- Verify your CRM subscription includes API access
+
+### Sync Not Working
+
+If profiles aren't syncing:
+
+- Verify your integration is still **Active** in the Integrations page
+- Check that profiles have valid phone numbers (required for WhatsApp)
+- Review the sync settings to ensure the correct options are enabled
+- Check your CRM's API rate limits
+
+### Webhooks Not Triggering
+
+If campaign triggers aren't working:
+
+- Verify the webhook URL is correctly configured in your CRM
+- Check that the flow/automation is active in your CRM
+- Review the webhook handler logs in Merx for errors
+
+---
