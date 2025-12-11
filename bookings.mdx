@@ -1,0 +1,322 @@
+---
+title: "Booking Integration"
+description: "Enable conversational appointment booking with your booking provider through WhatsApp and other messaging channels"
+mode: "center"
+---
+
+<Info>
+Booking service integration connects your appointment booking system with conversational AI, enabling customers to discover services, check availability, and manage appointments through natural language.
+</Info>
+
+
+## Configuration
+
+### Prerequisites
+
+<Steps>
+  <Step title="Booking Provider Account">
+    Active booking provider account with API access enabled
+  </Step>
+  <Step title="Configure Services">
+    Services, staff, and locations set up in booking provider dashboard
+  </Step>
+  <Step title="API Credentials">
+    Obtain API Key and Partner Key for each market
+  </Step>
+  <Step title="Webhook Access">
+    Webhook endpoint permissions configured
+  </Step>
+</Steps>
+
+### Required Credentials
+
+<Info>
+Credentials are required **per market/location**. Multi-market setups need separate keys for each region.
+</Info>
+
+<CodeGroup>
+```json Configuration Format
+{
+  "api_key": "your-api-key",
+  "partner_key": "your-partner-key",
+}
+```
+
+```bash Environment Variables
+BOOKING_UK_API_KEY=your-uk-api-key
+BOOKING_UK_PARTNER_KEY=your-uk-partner-key
+BOOKING_DE_API_KEY=your-de-api-key
+BOOKING_DE_PARTNER_KEY=your-de-partner-key
+```
+</CodeGroup>
+
+### Setup Steps
+
+<Steps>
+  <Step title="Provide Credentials">
+    Submit API keys for each market/region you operate in
+  </Step>
+  <Step title="Knowledge Base Update">
+    System syncs your service catalog and stores from your booking provider automatically
+  </Step>
+  <Step title="Customize Messages (Optional)">
+    Configure custom notification templates using dynamic variables
+  </Step>
+  <Step title="Webhook Configuration">
+    Configure webhook endpoints and event subscriptions
+  </Step>
+  <Step title="Testing">
+    Verify end-to-end flows in test environment
+  </Step>
+  <Step title="Go Live">
+    Deploy to production channels
+  </Step>
+</Steps>
+
+---
+
+## Core Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Service Discovery" icon="magnifying-glass">
+    Browse and search services with filtering by category, booking method, and availability. Multi-language support included.
+  </Card>
+  
+  <Card title="Real-Time Availability" icon="clock">
+    Query availability across locations and staff with date range searches and next-available slot finding.
+  </Card>
+  
+  <Card title="Appointment Booking" icon="calendar-plus">
+    Create single or multi-service appointments with instant confirmation and unique reference numbers.
+  </Card>
+  
+  <Card title="Customer Management" icon="users">
+    Automatic profile lookup, creation, and preference storage across multiple channels.
+  </Card>
+  
+  <Card title="Appointment Management" icon="calendar-edit">
+    Retrieve, reschedule, and cancel appointments with real-time status tracking.
+  </Card>
+  
+  <Card title="Staff & Locations" icon="building">
+    Query staff directories, check calendars, and manage multi-location bookings.
+  </Card>
+</CardGroup>
+
+---
+
+## Integration Architecture
+
+<Tabs>
+  <Tab title="Architecture Diagram">
+    ```mermaid
+    graph TD
+        A[Customer via WhatsApp] -->|Natural Language| B[Merx AI Agent]
+        B -->|Booking API| C[Booking Provider]
+        C -->|Webhooks| D[Notification System]
+        D -->|Reminders & Updates| A
+        
+        C --> E[Services]
+        C --> F[Availability]
+        C --> G[Bookings]
+        C --> H[Staff]
+        
+        style A fill:#06B6D4,stroke:#0891B2,stroke-width:2px,color:#000
+        style B fill:#8B5CF6,stroke:#7C3AED,stroke-width:2px,color:#FFF
+        style C fill:#3B82F6,stroke:#2563EB,stroke-width:2px,color:#FFF
+        style D fill:#F59E0B,stroke:#D97706,stroke-width:2px,color:#000
+        style E fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style F fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style G fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style H fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+    ```
+  </Tab>
+  
+  <Tab title="Data Flow">
+    **Customer Request Flow:**
+    1. Customer sends booking request via WhatsApp
+    2. AI processes intent and extracts booking parameters
+    3. System queries booking provider API for availability
+    4. Customer confirms booking details
+    5. Appointment created in booking provider
+    6. Confirmation sent to customer
+    
+    **Webhook Event Flow:**
+    1. Booking provider triggers webhook (created, updated, remind, etc.)
+    2. Event received and validated by integration
+    3. Message template populated with booking data
+    4. Notification sent to customer via WhatsApp
+  </Tab>
+</Tabs>
+
+---
+
+## Webhook Events
+
+The integration processes real-time events from booking provider webhooks:
+
+<AccordionGroup>
+  <Accordion title="appointment.created" icon="calendar-plus">
+    **Triggered:** When a new booking is created
+    
+    **Actions:**
+    - Store complete appointment details
+    - Link to customer profile
+    - Enable future booking retrieval
+    - Send confirmation notification
+    
+    **Data Received:**
+    - Appointment ID and confirmation number
+    - Service details (name, duration, price)
+    - Staff assignment
+    - Location and time
+    - Customer information
+  </Accordion>
+
+  <Accordion title="appointment.remind" icon="bell">
+    **Triggered:** Based on reminder schedule (default: 30 minutes before)
+    
+    **Actions:**
+    - Send customized reminder message
+    - Include all booking details
+    - Support custom message templates
+    
+    **Use Case:**
+    Reduce no-shows by sending timely reminders with location and preparation details.
+  </Accordion>
+
+  <Accordion title="appointment.status_updated" icon="arrows-rotate">
+    **Triggered:** When appointment status changes
+    
+    **Statuses:**
+    - `Pending` → `Confirmed`
+    - `Confirmed` → `Approved`
+    - `Approved` → `Cancelled`
+    
+    **Actions:**
+    - Notify customer of status change
+    - Update internal booking records
+    - Execute status-based workflows
+  </Accordion>
+
+  <Accordion title="appointment.updated" icon="pen-to-square">
+    **Triggered:** When booking details are modified
+    
+    **Actions:**
+    - Detect rescheduling and send notifications
+    - Update service or staff assignments
+    - Maintain booking history
+    
+    **Common Updates:**
+    - Time changes (rescheduling)
+    - Staff reassignment
+    - Service modifications
+    - Location changes
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Technical Specifications
+
+### Supported Operations
+
+<CardGroup cols={2}>
+  <Card title="Read Operations" icon="book">
+    - Service discovery & search
+    - Availability checking
+    - Booking retrieval
+    - Staff directory queries
+    - Location information
+    - Customer profile lookup
+  </Card>
+  
+  <Card title="Write Operations" icon="pen">
+    - Appointment creation
+    - Booking rescheduling
+    - Appointment cancellation
+    - Customer profile creation
+    - Customer profile updates
+  </Card>
+</CardGroup>
+
+### Booking Rules & Validation
+
+<Warning>
+All bookings are validated against the booking provider's business rules before confirmation.
+</Warning>
+
+The integration enforces:
+- Real-time availability verification
+- Business hours and advance booking windows
+- Resource and staff capacity constraints
+- Booking method compatibility (appointments, groups, rentals)
+- Required customer information validation
+
+### Performance Characteristics
+
+| Metric | Target | Description |
+|--------|--------|-------------|
+| **Availability Queries** | < 2s | Real-time slot checking |
+| **Booking Creation** | Instant | Immediate confirmation |
+| **Webhook Processing** | Real-time | Event handling latency |
+| **API Uptime** | 99.9% | Service availability |
+
+---
+
+## Example Conversation Flow
+
+<Steps>
+  <Step title="Customer Initiates">
+    **Customer:** "I'd like to book a haircut"
+  </Step>
+  
+  <Step title="Service Discovery">
+    **AI:** "I can help you book a haircut! We offer:
+    
+    1. 💇 Men's Haircut - $35, 30min
+    2. 💇‍♀️ Women's Haircut - $55, 45min
+    3. ✂️ Haircut & Style - $75, 1hr
+    
+    Which would you prefer?"
+  </Step>
+  
+  <Step title="Availability Check">
+    **Customer:** "Men's haircut please"
+    
+    **AI:** "Great! When would you like to come in? I can check availability for you."
+    
+    **Customer:** "Tomorrow afternoon"
+    
+    **AI:** "Available tomorrow afternoon:
+    • 2:00 PM with James
+    • 3:30 PM with Sarah
+    • 4:15 PM with James"
+  </Step>
+  
+  <Step title="Booking Confirmation">
+    **Customer:** "2:00 PM with James"
+    
+    **AI:** "Perfect! I'll book you for tomorrow at 2:00 PM with James.
+    
+    Can I have your full name and phone number?"
+    
+    **Customer:** "John Smith, +1234567890"
+  </Step>
+  
+  <Step title="Booking Created">
+    **AI:** "✅ All set! Your appointment is confirmed:
+    
+    📋 Men's Haircut
+    👤 James
+    📍 Downtown Location
+    🕐 Dec 10, 2024 at 2:00 PM
+    💰 $35.00
+    
+    Confirmation: BK-2024-1234
+    
+    You'll receive a reminder 30 minutes before."
+  </Step>
+</Steps>
+
+---
