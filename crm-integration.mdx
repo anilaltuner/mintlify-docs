@@ -2,156 +2,318 @@
 title: "CRM Integrations"
 description: "Connect your favorite CRM and marketing tools to sync customer data, automate workflows, and deliver personalized WhatsApp experiences at scale"
 mode: "center"
----
-
-## Overview
-
-Merx integrates with leading CRM and marketing automation platforms to help you leverage your existing customer data for WhatsApp marketing. Sync customer profiles, segments, and product catalogs seamlessly to deliver personalized experiences at scale.
-
-<Frame>
-  <img src="/integrations.png" alt="Merx CRM Integrations" />
-</Frame>
-
-## What Can You Do with CRM Integrations?
-
-With Merx CRM integrations, you can:
-
-- **Sync customer profiles** — Import customer data from your CRM to Merx automatically
-- **Import segments and lists** — Bring your carefully curated audience segments as Merx user groups
-- **Sync product catalogs** — Enable WhatsApp commerce with your existing product data
-- **Trigger WhatsApp campaigns** — Launch campaigns from your CRM flows and automations
-- **Track events** — Capture customer interactions and sync them back to your CRM
-
-## How It Works
-
-Merx uses a secure integration layer to connect with your CRM, supporting both **API sync** and **webhook-based triggers**.
-
-### Authentication Methods
-
-| **Method** | **How it works** |
-| --- | --- |
-| **OAuth 2.0** | One-click authorization through your CRM's login page. No API keys to manage. |
-| **API Key** | Enter your CRM's API key directly in Merx for quick setup. |
-
-Most integrations use OAuth 2.0 for a seamless, secure connection experience.
-
-<Frame>
-  <img src="/crm.png" alt="CRM Integration Architecture" />
-</Frame>
-
-### Integration Architecture
-
-| **Component** | **Description** |
-| --- | --- |
-| **OAuth Handler** | Securely authenticates and authorizes connections to your CRM |
-| **Sync Engine** | Handles bidirectional data synchronization between platforms |
-| **Webhook Handler** | Processes real-time events and flow triggers from your CRM |
-| **API Endpoints** | Exposes Merx capabilities for CRM-initiated actions |
-
-### Data Mapping
-
-Your CRM data maps to Merx core models:
-
-| **CRM Data** | **Merx Model** |
-| --- | --- |
-| Profiles / Contacts | Chat_User |
-| Lists / Segments | Group |
-| Catalog Items | Product |
-| Flows / Automations | Campaigns |
 
 ---
 
-## Getting Started
+## Core Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Customer Sync" icon="users">
+    Import customer profiles from your CRM automatically with real-time or scheduled synchronization.
+  </Card>
+  
+  <Card title="Segment Import" icon="layer-group">
+    Bring your carefully curated audience segments and lists as Merx user groups.
+  </Card>
+  
+  <Card title="Product Catalog" icon="store">
+    Enable WhatsApp commerce with your existing product data and inventory sync.
+  </Card>
+  
+  <Card title="Campaign Triggers" icon="bolt">
+    Launch WhatsApp campaigns directly from your CRM flows and automations.
+  </Card>
+  
+  <Card title="Event Tracking" icon="chart-line">
+    Capture customer interactions and sync engagement data back to your CRM.
+  </Card>
+  
+  <Card title="Bidirectional Sync" icon="arrows-rotate">
+    Keep data consistent across platforms with two-way synchronization.
+  </Card>
+</CardGroup>
+
+---
+
+## Configuration
 
 ### Prerequisites
 
-Before connecting a CRM integration, make sure you have:
+<Tabs>
+  <Tab title="OAuth 2.0 (Recommended)">
+    <Steps>
+      <Step title="Merx Account">
+        Active Merx account with WhatsApp Business API configured
+      </Step>
+      <Step title="CRM Admin Access">
+        Admin-level access to your CRM platform
+      </Step>
+      <Step title="OAuth Permissions">
+        Your CRM subscription must support OAuth 2.0 API access
+      </Step>
+    </Steps>
+    
+    <Info>
+    OAuth 2.0 provides one-click authorization—no API keys to manage or rotate.
+    </Info>
+    
+    **That's it!** Simply click "Connect" and authorize through your CRM's login page.
+  </Tab>
+  
+  <Tab title="API Key">
+    <Steps>
+      <Step title="Merx Account">
+        Active Merx account with WhatsApp Business API configured
+      </Step>
+      <Step title="CRM Admin Access">
+        Admin-level access to your CRM platform
+      </Step>
+      <Step title="Generate API Key">
+        Create an API key in your CRM's developer settings
+      </Step>
+      <Step title="Configure Permissions">
+        Ensure the API key has read/write access to contacts, lists, and catalogs
+      </Step>
+    </Steps>
+    
+    <CodeGroup>
+```json Configuration Format
+{
+  "api_key": "your-crm-api-key"
+}
+```
 
-- An active Merx account
-- An active account with your CRM platform (with admin access)
-- WhatsApp Business API connection configured in Merx
+```bash Environment Variables
+CRM_API_KEY=your-api-key
+```
+    </CodeGroup>
+  </Tab>
+</Tabs>
 
-### Step 1: Navigate to Integrations
+### Setup Steps
 
-1. Log into your Merx Portal at [portal.hellomerx.com](https://portal.hellomerx.com)
-2. Click on **Integrations** in the top navigation menu, in CommerceHub
+<Steps>
+  <Step title="Navigate to Integrations">
+    Log into [portal.hellomerx.com](https://portal.hellomerx.com) and click **Integrations** in CommerceHub
+  </Step>
+  <Step title="Select Your CRM">
+    Find your CRM platform card and click **Connect**
+  </Step>
+  <Step title="Authorize Connection">
+    Complete OAuth flow or enter API credentials
+  </Step>
+  <Step title="Configure Sync Settings">
+    Choose sync options and mapping preferences
+  </Step>
+  <Step title="Verify Connection">
+    Confirm status shows **Connected** with your account details
+  </Step>
+  <Step title="Test Integration">
+    Run a test sync to verify data flows correctly
+  </Step>
+</Steps>
 
-### Step 2: Connect Your CRM
+---
 
-1. Find your CRM platform card in the integrations list
-2. Click **Connect**
-3. On the integration page, click **Connect to [Platform]**
+## Integration Architecture
 
-### Step 3: Authorize the Connection
+<Tabs>
+  <Tab title="Architecture Diagram">
+    ```mermaid
+    graph TD
+        subgraph CRM[CRM]
+            P[Profiles]
+            L[Lists]
+            S[Segments]
+            C[Catalog]
+        end
+        
+        subgraph MERX[MERX PLATFORM]
+            subgraph IL[CRM Integration Layer]
+                OH[OAuth Handler]
+                SE[Sync Engine]
+                WH[Webhook Handler]
+                AE[API Endpoints]
+            end
+            subgraph CM[Merx Core Models]
+                CU[Chat_User]
+                G[Group]
+                PR[Product]
+                CA[Campaigns]
+            end
+        end
+        
+        CRM -->|OAuth 2.0 + PKCE\nAPI Sync| IL
+        CRM -->|Webhooks Flows\nCampaign Triggers| IL
+        IL --> CM
+        CM --> WA[WhatsApp Cloud API]
+        
+        style CRM fill:#374151,stroke:#4B5563,stroke-width:2px,color:#FFF
+        style P fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style L fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style S fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style C fill:#1F2937,stroke:#374151,stroke-width:2px,color:#FFF
+        style MERX fill:#6B7280,stroke:#9CA3AF,stroke-width:2px,color:#FFF
+        style IL fill:#9CA3AF,stroke:#D1D5DB,stroke-width:2px,color:#000
+        style OH fill:#F3F4F6,stroke:#D1D5DB,stroke-width:2px,color:#000
+        style SE fill:#9CA3AF,stroke:#6B7280,stroke-width:2px,color:#000
+        style WH fill:#9CA3AF,stroke:#6B7280,stroke-width:2px,color:#000
+        style AE fill:#F3F4F6,stroke:#D1D5DB,stroke-width:2px,color:#000
+        style CM fill:#9CA3AF,stroke:#D1D5DB,stroke-width:2px,color:#000
+        style CU fill:#F3F4F6,stroke:#D1D5DB,stroke-width:2px,color:#000
+        style G fill:#9CA3AF,stroke:#6B7280,stroke-width:2px,color:#000
+        style PR fill:#9CA3AF,stroke:#6B7280,stroke-width:2px,color:#000
+        style CA fill:#9CA3AF,stroke:#6B7280,stroke-width:2px,color:#000
+        style WA fill:#374151,stroke:#4B5563,stroke-width:2px,color:#FFF
+    ```
+  </Tab>
+  
+  <Tab title="Data Flow">
+    **Inbound Sync (CRM → Merx):**
+    1. Merx queries your CRM via secure API connection
+    2. Profiles, segments, and catalogs are fetched
+    3. Data is mapped to Merx models
+    4. Records are created or updated in Merx
+    5. Sync status is logged for monitoring
+    
+    **Outbound Events (Merx → CRM):**
+    1. Customer engages via WhatsApp
+    2. Interaction events are captured
+    3. Events are formatted for your CRM
+    4. Data synced back to customer profiles
+    
+    **Webhook Triggers (CRM → Merx):**
+    1. CRM automation triggers webhook
+    2. Merx receives and validates event
+    3. Campaign or action is executed
+    4. Customer receives WhatsApp message
+  </Tab>
+  
+</Tabs>
 
-1. You'll be redirected to your CRM's authorization page
-2. Log into your CRM account if prompted
-3. Review the permissions requested:
-    - **Read access** to profiles, lists, segments, events, and catalogs
-    - **Write access** to catalogs (for bidirectional sync, where supported)
-4. Click **Allow** to authorize the connection
+---
 
-### Step 4: Verify Connection
+## Sync Configuration
 
-1. After authorization, you'll be redirected back to Merx
-2. The connection status should show **Connected** with your account details
-3. You can now configure sync settings
+<AccordionGroup>
+  <Accordion title="User Sync Options" icon="user-plus">
+    **Available Settings:**
+    
+    | **Setting** | **Description** |
+    | --- | --- |
+    | **Create Users** | Create new contacts in Merx for CRM profiles that don't exist |
+    | **Update Users** | Update existing contacts with latest data from your CRM |
+    | **Sync Properties** | Import custom properties as contact attributes |
+    | **Phone Validation** | Only sync profiles with valid WhatsApp-compatible phone numbers |
+    
+    <Info>
+    Phone numbers are required for WhatsApp delivery. Profiles without valid numbers will be skipped.
+    </Info>
+  </Accordion>
 
-## Configure Sync Settings
+  <Accordion title="Group & Segment Sync" icon="users-rectangle">
+    **Available Settings:**
+    
+    | **Setting** | **Description** |
+    | --- | --- |
+    | **Create Groups** | Create Merx user groups matching CRM lists/segments |
+    | **Auto-Update Membership** | Keep group membership in sync with CRM segments |
+    | **Preserve Custom Groups** | Don't overwrite manually created Merx groups |
+    
+    **Use Case:**
+    Target your existing CRM segments directly in WhatsApp campaigns without recreating audience lists.
+  </Accordion>
 
-After connecting, configure how data syncs between your CRM and Merx:
+  <Accordion title="Product Catalog Sync" icon="boxes-stacked">
+    **Available Settings:**
+    
+    | **Setting** | **Description** |
+    | --- | --- |
+    | **Import Products** | Sync product catalog from CRM to Merx |
+    | **Sync Inventory** | Keep stock levels updated in real-time |
+    | **Price Updates** | Automatically reflect price changes |
+    | **Category Mapping** | Map CRM categories to WhatsApp catalog categories |
+    
+    **Use Case:**
+    Enable WhatsApp commerce with your existing product data—no manual catalog setup required.
+  </Accordion>
 
-### Sync Options
+  <Accordion title="Scheduled Sync" icon="clock">
+    **Sync Frequency Options:**
+    
+    | **Frequency** | **Best For** |
+    | --- | --- |
+    | **Real-time** | High-volume, time-sensitive campaigns |
+    | **Hourly** | Active marketing operations |
+    | **Daily** | Standard sync needs |
+    | **Manual** | Controlled, on-demand updates |
+    
+    Enable scheduled sync to automatically import new profiles and keep your Merx audience up-to-date.
+  </Accordion>
+</AccordionGroup>
 
-| **Setting** | **Description** |
-| --- | --- |
-| **Create Users** | Create new contacts in Merx for CRM profiles that don't exist |
-| **Update Users** | Update existing contacts with data from your CRM |
-| **Sync Properties** | Import custom properties as contact attributes |
-| **Create Groups** | Create Merx user groups matching CRM lists/segments |
-
-### Scheduled Sync
-
-Enable scheduled sync to automatically import new profiles daily. This ensures your Merx audience stays up-to-date with your CRM data.
+---
 
 ## Disconnecting an Integration
 
-To disconnect a CRM integration:
+<Steps>
+  <Step title="Navigate to Integrations">
+    Go to **Integrations** in the Merx portal
+  </Step>
+  <Step title="Find Your CRM">
+    Locate the connected CRM platform
+  </Step>
+  <Step title="Disconnect">
+    Click **Disconnect** and confirm
+  </Step>
+</Steps>
 
-1. Go to **Integrations** and find your connected CRM
-2. Click **Disconnect**
-3. Confirm the disconnection
+<Warning>
+Disconnecting will revoke Merx's access to your CRM account. Previously synced data will remain in Merx but will no longer update.
+</Warning>
 
-<Note>
-Disconnecting will revoke Merx's access to your CRM account. Previously synced data will remain in Merx.
-</Note>
+---
 
 ## Troubleshooting
 
-### Connection Failed
+<AccordionGroup>
+  <Accordion title="Connection Failed" icon="circle-xmark">
+    If the OAuth connection fails:
+    
+    - Ensure you have admin access to your CRM account
+    - Check that pop-ups are not blocked in your browser
+    - Try clearing your browser cache and cookies
+    - Verify your CRM subscription includes API access
+    - Check if your CRM has IP allowlisting requirements
+  </Accordion>
 
-If the OAuth connection fails:
+  <Accordion title="Sync Not Working" icon="arrows-rotate">
+    If profiles aren't syncing:
+    
+    - Verify your integration is still **Active** in the Integrations page
+    - Check that profiles have valid phone numbers (required for WhatsApp)
+    - Review the sync settings to ensure the correct options are enabled
+    - Check your CRM's API rate limits
+    - Verify OAuth token hasn't expired
+  </Accordion>
 
-- Ensure you have admin access to your CRM account
-- Check that pop-ups are not blocked in your browser
-- Try clearing your browser cache and cookies
-- Verify your CRM subscription includes API access
+  <Accordion title="Webhooks Not Triggering" icon="bell-slash">
+    If campaign triggers aren't working:
+    
+    - Verify the webhook URL is correctly configured in your CRM
+    - Check that the flow/automation is active in your CRM
+    - Review the webhook handler logs in Merx for errors
+    - Ensure webhook payload format matches expected schema
+  </Accordion>
 
-### Sync Not Working
-
-If profiles aren't syncing:
-
-- Verify your integration is still **Active** in the Integrations page
-- Check that profiles have valid phone numbers (required for WhatsApp)
-- Review the sync settings to ensure the correct options are enabled
-- Check your CRM's API rate limits
-
-### Webhooks Not Triggering
-
-If campaign triggers aren't working:
-
-- Verify the webhook URL is correctly configured in your CRM
-- Check that the flow/automation is active in your CRM
-- Review the webhook handler logs in Merx for errors
+  <Accordion title="Data Mapping Issues" icon="diagram-project">
+    If data isn't mapping correctly:
+    
+    - Review field mapping configuration
+    - Check for required fields that may be missing
+    - Verify data types match between platforms
+    - Check for special character encoding issues
+  </Accordion>
+</AccordionGroup>
 
 ---
