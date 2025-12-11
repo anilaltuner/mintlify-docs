@@ -1,5 +1,5 @@
 ---
-title: "Booking Services Integration"
+title: "Booking Integration"
 description: "Enable conversational appointment booking with Booxi through WhatsApp and other messaging channels"
 mode: "center"
 ---
@@ -8,6 +8,72 @@ mode: "center"
 Booking service integration connects your appointment booking system with conversational AI, enabling customers to discover services, check availability, and manage appointments through natural language.
 </Info>
 
+
+## Configuration
+
+### Prerequisites
+
+<Steps>
+  <Step title="Booxi Account">
+    Active Booxi account with API access enabled
+  </Step>
+  <Step title="Configure Services">
+    Services, staff, and locations set up in Booxi dashboard
+  </Step>
+  <Step title="API Credentials">
+    Obtain API Key and Partner Key for each market
+  </Step>
+  <Step title="Webhook Access">
+    Webhook endpoint permissions configured
+  </Step>
+</Steps>
+
+### Required Credentials
+
+<Info>
+Credentials are required **per market/location**. Multi-market setups need separate keys for each region.
+</Info>
+
+<CodeGroup>
+```json Configuration Format
+{
+  "api_key": "your-booxi-api-key",
+  "partner_key": "your-booxi-partner-key",
+}
+```
+
+```bash Environment Variables
+BOOXI_UK_API_KEY=your-uk-api-key
+BOOXI_UK_PARTNER_KEY=your-uk-partner-key
+BOOXI_DE_API_KEY=your-de-api-key
+BOOXI_DE_PARTNER_KEY=your-de-partner-key
+```
+</CodeGroup>
+
+### Setup Steps
+
+<Steps>
+  <Step title="Provide Credentials">
+    Submit API keys for each market/region you operate in
+  </Step>
+  <Step title="Knowledge Base Update">
+    System syncs your service catalog and stores from Booxi automatically
+  </Step>
+  <Step title="Customize Messages (Optional)">
+    Configure custom notification templates using dynamic variables
+  </Step>
+  <Step title="Webhook Configuration">
+    Configure webhook endpoints and event subscriptions
+  </Step>
+  <Step title="Testing">
+    Verify end-to-end flows in test environment
+  </Step>
+  <Step title="Go Live">
+    Deploy to production channels
+  </Step>
+</Steps>
+
+---
 
 ## Core Capabilities
 
@@ -195,72 +261,6 @@ The integration enforces:
 | **Booking Creation** | Instant | Immediate confirmation |
 | **Webhook Processing** | Real-time | Event handling latency |
 | **API Uptime** | 99.9% | Service availability |
-
----
-
-## Configuration
-
-### Prerequisites
-
-<Steps>
-  <Step title="Booxi Account">
-    Active Booxi account with API access enabled
-  </Step>
-  <Step title="Configure Services">
-    Services, staff, and locations set up in Booxi dashboard
-  </Step>
-  <Step title="API Credentials">
-    Obtain API Key and Partner Key for each market
-  </Step>
-  <Step title="Webhook Access">
-    Webhook endpoint permissions configured
-  </Step>
-</Steps>
-
-### Required Credentials
-
-<Info>
-Credentials are required **per market/location**. Multi-market setups need separate keys for each region.
-</Info>
-
-<CodeGroup>
-```json Configuration Format
-{
-  "api_key": "your-booxi-api-key",
-  "partner_key": "your-booxi-partner-key",
-}
-```
-
-```bash Environment Variables
-BOOXI_UK_API_KEY=your-uk-api-key
-BOOXI_UK_PARTNER_KEY=your-uk-partner-key
-BOOXI_DE_API_KEY=your-de-api-key
-BOOXI_DE_PARTNER_KEY=your-de-partner-key
-```
-</CodeGroup>
-
-### Setup Steps
-
-<Steps>
-  <Step title="Provide Credentials">
-    Submit API keys for each market/region you operate in
-  </Step>
-  <Step title="Knowledge Base Update">
-    System syncs your service catalog and stores from Booxi automatically
-  </Step>
-  <Step title="Customize Messages (Optional)">
-    Configure custom notification templates using dynamic variables
-  </Step>
-  <Step title="Webhook Configuration">
-    Configure webhook endpoints and event subscriptions
-  </Step>
-  <Step title="Testing">
-    Verify end-to-end flows in test environment
-  </Step>
-  <Step title="Go Live">
-    Deploy to production channels
-  </Step>
-</Steps>
 
 ---
 
