@@ -8,6 +8,9 @@
     "dark": "#0F7A2A"
   },
   "favicon": "/favicon.svg",
+  "layout": {
+    "sidebar": "hidden"
+  },
   "navigation": {
     "tabs": [
       {
